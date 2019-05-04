@@ -8,4 +8,16 @@ before_install:
 script:
   - docker run palo/docker-react npm run test -- --coverage
 
-
+deploy:
+  provider: elasticbeanstalk
+  region: "eu-central-1"   # from link in AWS beanstalk region, link like this  URL: DockerReact-env.wwgbmrumpq.eu-central-1.elasticbeanstalk.com
+  app: "docker-react"  # name of project in elasticbeanstalk
+  env: "DockerReact-env"  # from elasticbeanstalk
+  bucket_name: "elasticbeanstalk-eu-central-1-933271683194" # in S3 section in AWS
+  bucket_path: "docker-react"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_acces_key:
+    secure: "$AWS_SECRET_KEY"
+  
